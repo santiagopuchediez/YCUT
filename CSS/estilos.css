@@ -257,7 +257,7 @@
 }
 .botoninv{
   border:none;
-  width: 40%;
+  width: 25%;
   height: 20%;
   background-color: var(--verde);
   border-radius: 3px;
@@ -361,6 +361,43 @@
   border-color:var(--verde-ter);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
+.contaulasinv {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  width: 100%;         
+  max-width: 1200px;   
+  margin: 0 auto;      
+  background-color: var(--blanco);
+  border: 1px solid var(--verde-sec);
+  padding: 3%;
+}
+
+.aulasinv {
+  width: 23%;         
+  min-width: 220px;    
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  background: var(--gris-sec);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.aulasinv:hover{
+  background-color: var(--gris-ter);
+}
+
+.imgaulinv {
+  width: 100%;
+  height: 120px;     
+  object-fit: cover;
+  border-radius: 6%;
+
+
+}
 /*------CONSULTAR USUARIOS------*/
 .btngesusu{
   border:none;
@@ -428,7 +465,7 @@
   border: 3px solid var(--negro);
   border-radius: 15px;
 }
- 
+
 /*-------------------RESPONSIVES----------------------*/
 @media (max-width: 480px) {
   .login {

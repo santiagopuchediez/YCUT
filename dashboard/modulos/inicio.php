@@ -32,7 +32,7 @@
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">Yo cuido, y ¿Tú?</h1>
                     <p>De un proyecto a una realidad. En la institución Educariva Federico Ozanam se necesita un verdadero sentido de pertenencia y tú <?php echo $_SESSION['nom'], " ", $_SESSION['ape']; ?> puedes ser parte de ello. Reporta y ayudanos a mejorar la calidad de nuestro colegio.</p>
-                    <a class="btninc" href="#!">Realizar Un Reporte</a>
+                    <a class="btninc" href="index.php?mod=reportar.php">Realizar Un Reporte</a>
                 </div>
             </div>
             <!-- Call to Action-->

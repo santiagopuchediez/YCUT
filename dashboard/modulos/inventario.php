@@ -1,4 +1,21 @@
+ <script>
+function cargarTarjetas(bloque) {
+    fetch("/YCUT/dashboard/modulos/get_tarjetas.php?bloque=" + bloque)
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("tarjetas").innerHTML = html;
+      document.getElementById("tabla").innerHTML = "";
+    });
+}
 
+function cargarTabla(aula) {
+  fetch("/YCUT/dashboard/modulos/get_tabla.php?aula=" + aula)
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("tabla").innerHTML = html;
+    });
+}
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,24 +33,36 @@
         <div class="continv">
             
             <br>
-            <button class="botoninv" name="btnaulsur">Aulas Bloque Sur</button>
-            <button class="botoninv" name="btnsalpro">Sala de Profesores</button>
+            <button class="botoninv" onclick="cargarTarjetas('bloque_sur')">Aulas Bloque Sur</button>
+            <button class="botoninv" onclick="cargarTarjetas('sala_profesores')">Sala de Profesores</button>
+            <button class="botoninv" onclick="cargarTarjetas('biblioteca')">Biblioteca</button>
             <br><br>
-            <button class="botoninv" name="btnaulnor">Aulas Bloque Norte</button>
-            <button class="botoninv" name="btnaseo">Personal Aseo</button>
+            <button class="botoninv" onclick="cargarTarjetas('bloque_norte')">Aulas Bloque Norte</button>
+            <button class="botoninv" onclick="cargarTarjetas('personal_aseo')">Personal Aseo</button>
+            <button class="botoninv" onclick="cargarTarjetas('coliseo')">Coliseo</button>
             <br><br>
-            <button class="botoninv" name="btnaud">Auditorio</button>
-            <button class="botoninv" name="btncor">Coordinaciones</button>
+            <button class="botoninv" onclick="cargarTarjetas('auditorio')">Auditorio</button>
+            <button class="botoninv" onclick="cargarTarjetas('coordinaciones')">Coordinaciones</button>
+            <button class="botoninv" onclick="cargarTarjetas('secretarias')">secretarías</button>
             <br><br>
+            <form action="index.php?mod=inventario" method="post">
+            <button class="botoninv" name="btninvgen">Inventario general</button>
+            </form>
+            <br>
         </div>
         </center>
-        <br><br>
+        
         <center>
-        <form action="index.php?mod=inventario" method="post">
-            <input type="" name="txtens" placeholder="Buscar Enser" class="inpinv">
-            <button name="btnbusinv" class="btninv" type="submit">Buscar</button>
-        </form>
-        </center>
+<?php
+if(isset($_POST['btninvgen'])){
+    echo '<h3>Resultados de la búsqueda</h3>';
+echo '<form action="index.php?mod=inventario" method="post">';
+            echo '<input type="" name="txtens" placeholder="Buscar Enser" class="inpinv">';
+            echo '<button name="btnbusinv" class="btninv" type="submit">Buscar</button>';
+        echo '</form>';
+        echo '</center>';
+}
+?>
  <?php
     if (isset($_POST['btndelinv']) && isset($_POST['nmbidens'])) {
         include '../../conexion.php';
@@ -68,7 +97,7 @@
     ?>
 
 
-            <table class="tableinv">
+            <table class="tableinv" id="tabla">
                 <tr>
                     
                         <td>ID</td>
@@ -109,8 +138,6 @@
         </form>
             <?php
         }
-    }else{
-        echo '<p class="text-center">Ingrese datos para buscar.</p>';
     }
     ?>
             </table>
@@ -181,6 +208,15 @@
       } 
     }   
 ?>
+<br>
+<div id="tarjetas">
+
+</div>
+
+</div>
+<br>
+<div id="tabla"></div>
+<br><br>
     </main>
 
 
