@@ -2,7 +2,7 @@
 <main>
         </div>
      <div class="container px-4 px-lg-5">
-        <h3 class="txt3"> ¡Hola <?php echo $_SESSION['nom'], " ", $_SESSION['ape']; ?>!</h3>
+        <h3 class="txt2"> ¡Hola <?php echo $_SESSION['nom'], " ", $_SESSION['ape']; ?>!</h3>
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
            

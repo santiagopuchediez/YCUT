@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../CSS/estilos.css">
     <?php
     
-    include "../../conexion.php";
+  /*   include "../../conexion.php";
     $doc = $_SESSION['user'];
     $userdatos = mysqli_query($conexion, "SELECT s_nombre, s_apellido, email, grupo, id_rol FROM usuarios WHERE doc = '$doc'")or die($conexion."Problemas en la consulta");
     $num1 = mysqli_num_rows($userdatos);
@@ -20,7 +20,35 @@
         $_SESSION['email'] = $row1['email'];
         $_SESSION['rolus'] = $row1['id_rol'];
     }
-  }
+  } */
+ include "../../conexion.php";
+$doc = $_SESSION['user'];
+
+$userdatos = mysqli_query($conexion, "
+    SELECT u.p_nombre, 
+           u.s_nombre, 
+           u.s_apellido, 
+           u.email, 
+           u.grupo, 
+           u.id_rol,
+           r.nombre
+    FROM usuarios u
+    INNER JOIN rol r ON u.id_rol = r.id_rol
+    WHERE u.doc = '$doc'
+") or die("Problemas en la consulta: ".mysqli_error($conexion));
+
+$num1 = mysqli_num_rows($userdatos);
+if($num1 > 0){
+    while($row1 = mysqli_fetch_array($userdatos)){
+        $_SESSION['nom']   = $row1['p_nombre'];
+        $_SESSION['snom']  = $row1['s_nombre'];
+        $_SESSION['sape']  = $row1['s_apellido'];
+        $_SESSION['grupo'] = $row1['grupo'];
+        $_SESSION['email'] = $row1['email'];
+        $_SESSION['rol']   = $row1['id_rol'];
+        $_SESSION['rolus'] = $row1['nombre']; // 🔹 aquí guardas el nombre del rol
+    }
+}
 
     ?>
 </head>
@@ -60,93 +88,104 @@
     </div>
   </div> 
   <!-- FORMULARIO PARA REPORTAR -->
-   <div class="row align-items-center mt-3 mb-3">
-  <form class="w-100">
-    <div class="form-row row">
+<div class="row align-items-center mt-3 mb-3">
+  <form class="w-100" enctype="multipart/form-data" method="post" action="../../code_reportar.php">
+    <!-- SECCIÓN DE INFORMACIÓN PERSONAL (OCUPANDO TODO EL ANCHO) -->
+    <div class="form-row row mb-4">
       <h3 class="titles">Información Personal</h3>
-      <div class="form-group col-md-3 mb-2">
-        <label >Primer Nombre</label>
-        <br>
-        <input type="text" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['nom']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <label>Segundo Nombre</label>
-        <br>
-        <input type="text" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['snom']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <label>Primer Apellido</label>
-        <br>
-        <input type="text" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['ape']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <label>Segundo Apellido</label>
-        <br>
-        <input type="text" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['sape']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <label>Email</label>
-        <br>
-        <input type="Email" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['email']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <label for="inputZip">Grado</label>
-        <br>
-        <input type="text" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['grupo']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <label for="inputZip">Tú Rol</label>
-        <br>
-        <input type="text" class="selrep" id="selrepleer" placeholder="<?php echo $_SESSION['rolus']; ?>" readOnly>
-      </div>
-      <div class="form-group col-md-3 mb-2">
-        <p class="text-break"> ¡Tranquil@! Esta información será vista únicamente por los administradores. La persona reportada no tendrá acceso a tu identidad. 😊</p>
-      </div>
-    </div>
-
-    <div class="form-row row">
-      <div class="form-group col-md-3">
-        <h3 class="titles">Evidencia</h3>
-        <label for="imagen">Selecciona una imagen</label>
-        <input type="file" class="form-control campos" id="imagen" name="imagen" accept="image/*" onchange="vistaPrevia(event)">
-
-        <label>Vista previa:</label><br>
-        <img id="preview" src="" style="max-width: 80%; display: none; border-radius: 0.5rem;" alt="Vista previa de imagen">
-      </div>
-      <div class="form-group col-md-3">
-        <h3 class="titles">Información Requerida</h3>
-        <div class="form-row row">
-        <div class="col-md-12 mb-2">
-        <label for="inputEmail4">Descripción Breve</label>
-        <textarea class="inpinv" id="descripcion" rows="4" placeholder="Descripción" ></textarea>
+    
+      <!-- PRIMERA FILA: NOMBRES Y APELLIDOS -->
+      <div class="row">
+        <div class="form-group col-md-3 mb-2">
+          <label>Primer Nombre</label>
+          <input type="text" class="form-control selrep" id="selreplee" value="<?php echo $_SESSION['nom']; ?>" readonly>
+        </div>
+        <div class="form-group col-md-3 mb-2">
+          <label>Segundo Nombre</label>
+          <input type="text" class="form-control selrep" value="<?php echo $_SESSION['snom']; ?>" readonly>
+        </div>
+        <div class="form-group col-md-3 mb-2">
+          <label>Primer Apellido</label>
+          <input type="text" class="form-control selrep" value="<?php echo $_SESSION['ape']; ?>" readonly>
+        </div>
+        <div class="form-group col-md-3 mb-2">
+          <label>Segundo Apellido</label>
+          <input type="text" class="form-control selrep" value="<?php echo $_SESSION['sape']; ?>" readonly>
         </div>
       </div>
+
+      <!-- SEGUNDA FILA: EMAIL, GRADO Y ROL -->
+      <div class="row">
+        <div class="form-group col-md-4 mb-2">
+          <label>Email</label>
+          <input type="email" class="form-control selrep" value="<?php echo $_SESSION['email']; ?>" readonly>
+        </div>
+        <div class="form-group col-md-2 mb-2">
+          <label>Grado</label>
+          <input type="text" class="form-control selrep" value="<?php echo $_SESSION['grupo']; ?>" readonly>
+        </div>
+        <div class="form-group col-md-3 mb-2">
+          <label>Tu Rol</label>
+          <input type="text" class="form-control selrep" value="<?php echo $_SESSION['rolus']; ?>" readonly>
+        </div>
+        <div class="form-group col-md-3 mb-2">
+          <label><b>¿Información Erronea?</b></label>
+          <button type="submit" class="btn  btnReport">Actualizar Datos</button>
+        </div>
       </div>
-      <div class="form-group col-md-6">
-        <div class="form-row row mt-4">
-        <div class="col-md-3 mb-2">
+
+      <!-- MENSAJE DE PRIVACIDAD -->
+      <div class="form-group col-md-12 mb-2">
+        <p class="text-break">
+          ¡Tranquil@! Esta información será vista únicamente por los administradores. La persona reportada no tendrá acceso a tu identidad. 😊
+        </p>
+      </div>
+    </div>
+    <div class="form-row row">
+      <div class="form-group col-md-2">
+        <h3 class="titles">Evidencia</h3>
+        <label for="imagen">Selecciona una imagen</label>
+        <input type="file" class="form-control campos" id="imagen" name="evidencia" accept="image/*" onchange="vistaPrevia(event)">
+      </div>
+      <!-- <div class="form-group col-md-3">
+      <label>Vista previa:</label><br>
+      <img id="preview" src="" style="display:none; max-width:200px; max-height:200px; object-fit:contain; border-radius: 0.5rem;" alt="Vista previa de imagen">
+      </div> -->
+      <div class="form-group col-md-10 mb-2">
+        <h3 class="titles">Información Requerida</h3>
+        <div class="form-row row">
+        <div class="col-md-7 mb-2">
+        <label for="">Descripción Breve</label>
+        <textarea class="form-control selrep" name="descrip" id="textarea" oninput="ajustarAltura(this)" style="resize:none; width:100%; overflow:hidden;"></textarea>
+        </div>
+        <div class="col-md-5">
+        <p class="text-break"> <?php echo $_SESSION['nom']?>, recuerda verificar todo lo ingresado, antes de enviar. ✅</p>
+        </div>
+        </div>
+      </div>
+        <div class="form-row row">
+        <div class="col-md-3">
         <label for="inputEmail4">Responsable</label>
-        <input type="email" class="selinv" id="inputEmail4" placeholder="Email" >
+        <input name="responsa" type="text" class="form-control selrep" id="inputEmail4">
       </div>
       <div class="col-md-3 mb-2">
-        <label for="inputEmail4">ID Enser</label>
-        <input type="email" class="selinv" id="inputEmail4" placeholder="Email" >
+        <label for="">ID Enser</label>
+        <input name="idEnser" type="number" class="form-control selrep" id="inputEmail4">
       </div>
       <div class="col-md-3 mb-2">
-        <label for="inputEmail4">Aula</label>
-        <input type="email" class="selinv" id="inputEmail4" placeholder="Email" >
+        <label for="">Aula</label>
+        <input name="aula" type="number" class="form-control selrep" id="inputEmail4">
       </div>
       <div class="col-md-3 mb-2">
-        <label for="inputEmail4">Bloque</label>
-        <input type="email" class="selinv" id="inputEmail4" placeholder="Email" >
+        <label for="">Bloque</label>
+        <input name="bloque" type="number" class="form-control selrep" id="inputEmail4">
       </div>
       <div class="col-md-3 mb-2">
-        <label for="inputEmail4">Fecha y Hora</label>
-        <input type="email" class="selinv" id="inputEmail4" placeholder="Email" >
+        <label for="">Fecha</label>
+        <input name="date" type="date" class="form-control selrep" id="inputEmail4">
       </div>
       <div class="col-md-3 mb-6 mt-4">
-            <button type="submit" class="btn  btnReport">Enviar Reporte</button>
-      </div>
+            <button type="submit" name="btn_report" class="btn  btnReport">Enviar Reporte</button>
       </div>
       </div>
       </div>
@@ -156,7 +195,7 @@
 
 </div>
  <script>
-function vistaPrevia(event) {
+/* function vistaPrevia(event) {
   const input = event.target;
   const img = document.getElementById('preview');
   
@@ -168,6 +207,10 @@ function vistaPrevia(event) {
     };
     reader.readAsDataURL(input.files[0]);
   }
+} */
+function ajustarAltura(el) {
+  el.style.height = 5 + "px";              // reinicia la altura
+  el.style.height = el.scrollHeight + "px"; // ajusta a la altura real del contenido
 }
 </script>
 </body>

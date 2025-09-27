@@ -72,18 +72,7 @@ echo '<form action="index.php?mod=inventario" method="post">';
     }
     ?>
     <?php
-    if(isset($_POST['btnbusinv'])){
-        include '../../conexion.php';
-        $datoens = $_POST['txtens'];
-        $consulta = mysqli_query($conexion, "
-            SELECT e.id_enser, e.estado, e.id_aula, b.cardinalidad AS nombre_bloque, t.nombre AS nombre_tipo
-            FROM enseres AS e
-            INNER JOIN tipo_enser AS t ON e.id_tipo = t.id_tipo
-            INNER JOIN bloques AS b ON e.id_bloque = b.id_bloque
-            WHERE t.nombre LIKE '%$datoens%'
-        ") or die("Problemas en la conexión");
-
-        if (isset($_POST['btnmodinve'])){
+      if (isset($_POST['btnmodinve'])){
             include '../../conexion.php';
                       // Recibir datos
                       $idens = $_POST['nmbidens'];
@@ -92,8 +81,21 @@ echo '<form action="index.php?mod=inventario" method="post">';
                       $estado = $_POST['cmbest'];
                       $bloque = $_POST['cmbblo'];
                      
-            $update = mysqli_query($conexion, "UPDATE `enseres` SET `estado` = '$estado', `id_tipo` = '$tipo', `id_aula` = '$aula', `id_bloque` = '$bloque' WHERE `enseres`.`id_enser` = '$idens';");
+            $update = mysqli_query($conexion, "UPDATE `enseres` SET `estado` = '$estado', `id_tipo` = '$tipo', `id_aula` = '$aula', `id_bloque` = '$bloque' WHERE `enseres`.`id_enser` = '$idens';") or die("Problemas al actualizar");
           }
+    ?>
+    <?php
+    if(isset($_POST['btnbusinv'])){
+        include '../../conexion.php';
+        $datoens = $_POST['txtens'];
+        $consulta = mysqli_query($conexion, "
+            SELECT e.id_enser, e.estado, e.id_aula, b.cardinalidad AS nombre_bloque, t.nombre AS nombre_tipo
+            FROM enseres AS e
+            INNER JOIN tipo_enser AS t ON e.id_tipo = t.id_tipo
+            INNER JOIN bloques AS b ON e.id_bloque = b.id_bloque
+            WHERE t.nombre LIKE '%$datoens%' order by id_enser asc
+        ") or die("Problemas en la conexión");
+
     ?>
 
 
@@ -169,9 +171,15 @@ echo '<form action="index.php?mod=inventario" method="post">';
                <div class="col-md-6 col-lg-3">
                     <label class="form-label">Bloque de Ubicación</label>
                     <select name="cmbblo" class="selinv" required>
-                    <option value="<?php echo $row3['nombre_bloque']; ?>"><?php echo $row3['nombre_bloque']; ?></option>
+                    <option value="<?php echo $row3['nombre_bloque']; ?>" disabled><?php echo $row3['nombre_bloque']; ?></option>
                     <option value="1">Sur</option>
                     <option value="2">Norte</option>
+                    <option value="3">Sala de profesores</option>
+                    <option value="4">Salas de aseo</option>
+                    <option value="5">Auditorio</option>
+                    <option value="6">Coordinaciones</option>
+                    <option value="7">Biblioteca</option>
+                    <option value="8">Coliseo</option>
                     </select>
                 </div>
 
