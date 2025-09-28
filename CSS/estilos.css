@@ -120,6 +120,83 @@
   color:  var(--gris);
   align-items: center;
 }
+
+/* ----------VER REPORTES---------------- */
+.card-body .flex-fill {
+  min-width: 0; 
+}
+
+.card-body .flex-fill p,
+.card-body .flex-fill h5,
+.card-body .flex-fill h6 {
+  white-space: nowrap;  
+  overflow: hidden;   
+  text-overflow: ellipsis; 
+}
+
+/* CARD ESTILO PERSONALIZADO */
+.card {
+  border: 1px solid var(--gris-ter); 
+  border-radius: 16px;               
+  background-color: var(--blanco);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--verde-ter); 
+}
+
+/* HEADER: Títulos y fechas */
+.card h5 {
+  color: var(--negro-sec);
+  font-weight: 600;
+}
+
+.card h6 {
+  color: var(--gris);
+  font-size: 0.9rem;
+}
+
+/* DESCRIPCIÓN */
+.card p {
+  margin-bottom: 0.5rem;
+  color: var(--gris);
+  font-size: 0.95rem;
+}
+
+/* BOTONES personalizados */
+.btn-primary {
+  background-color: var(--verde);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--verde-sec);
+}
+
+.btn-warning {
+  background-color: var(--amarillo);
+  border: none;
+  color: #000;
+}
+
+.btn-warning:hover {
+  background-color: var(--amarillo-sec);
+  color: #000;
+}
+
+.btn-danger {
+  background-color: var(--rojo);
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #7a0000;
+}
+
 /*------INICIAR SESION Y REGISTAR------*/
 
 .logo{

@@ -159,7 +159,7 @@ if($num1 > 0){
         <textarea class="form-control selrep" name="descrip" id="textarea" oninput="ajustarAltura(this)" style="resize:none; width:100%; overflow:hidden;"></textarea>
         </div>
         <div class="col-md-5">
-        <p class="text-break"> <?php echo $_SESSION['nom']?>, recuerda verificar todo lo ingresado, antes de enviar. ✅</p>
+        <p class="text-break"> <?php echo $_SESSION['nom']?>, recuerda verificar todo lo ingresado, antes de enviar.</p>
         </div>
         </div>
       </div>
