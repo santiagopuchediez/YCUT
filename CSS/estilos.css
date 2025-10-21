@@ -470,8 +470,6 @@
   height: 120px;     
   object-fit: cover;
   border-radius: 6%;
-
-
 }
 /*------CONSULTAR USUARIOS------*/
 .btngesusu{
@@ -526,19 +524,109 @@
   box-shadow: 0px 0px 0px 2px var(--gris-sec);
 }
 /*------CONTACTENOS------*/
+.cont{
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  height: 630px;
+}
 .campcont{
-  width: 1100px;
-  height: auto;
+  width: 450px;
+  height: 95%;
   padding: 3%;
   border: 3px solid var(--negro);
-  border-radius: 15px;
+  border-radius: 5px;
 }
 #campnot{
-  width: 550px;
-  height: auto;
+  width: 750px;
+  height: 95%;
   padding: 2%;
   border: 3px solid var(--negro);
   border-radius: 15px;
+}
+.inpcont{
+  height: 10%;
+  width: 90%;
+  background-color: transparent;
+  border-color: var(--gris);
+  align-items: center;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  outline:none;
+  font-size:x-large;
+  color: var(--negro);
+  border-style:solid;
+  text-align: center;
+  font-size: medium;
+}
+#inpcontdat{
+  height: 10%;
+  width: 65%;
+  background-color: transparent;
+  border-color: var(--gris);
+  align-items: center;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  outline:none;
+  font-size:x-large;
+  color: var(--negro);
+  border-style:solid;
+  text-align: center;
+  font-size: medium;
+}
+#inpcontdatycut{
+  height: 10%;
+  width: 65%;
+  background-color: transparent;
+  border-color: var(--gris);
+  align-items: center;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: transparent;
+  outline:none;
+  font-size:x-large;
+  color: var(--negro);
+  border-style:solid;
+  text-align: center;
+  font-size: medium;
+}
+.inpcontmen{
+  min-height: 20px;
+  width: 90%;
+  background-color: transparent;
+  border-color: var(--gris);
+  align-items: center;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  outline:none;
+  font-size:x-large;
+  color: var(--negro);
+  border-style:solid;
+  text-align: center;
+  font-size: medium;
+  outline: none;
+  position: absolute;
+}
+.btncont{
+  border:none;
+  width: 25%;
+  height: 5%;
+  background-color: var(--verde);
+  border-radius: 3px;
+  color: var(--blanco);
+}
+.btncont:hover{
+  background-color: var(--verde-sec);
+  border-color:var(--verde-ter);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /*-------------------RESPONSIVES----------------------*/
@@ -560,6 +648,25 @@
     width: 200px;
     padding: 5px;
   }
+    .continv{
+    width: 100%;
+  }
+    .botoninv{
+      width: 100px;
+      height: 70px;
+      font-size: 13px;
+      padding: 8px;
+    }
+  .contaulasinv{
+    width: 95%;
+  }
+  .aulasinv {  
+    width: 10%;
+    font-size: 13px;
+  }
+  .imgaulinv{
+    width: 70%;
+  }
 }
 @media (max-width: 768px) {
   .tableinv th, .tableinv td {
@@ -574,5 +681,14 @@
   #campnot{
     width: 200px;
     padding: 5px;
+  }
+  .continv{
+    width: 100%;
+  }
+  .botoninv{
+    width: 100px;
+    height: 70px;
+    font-size: 13px;
+    padding: 8px;
   }
 }

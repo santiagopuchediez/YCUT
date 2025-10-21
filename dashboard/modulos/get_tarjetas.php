@@ -43,7 +43,8 @@ if (isset($bloque_id[$bloque])) {
         echo '<img class="imgaulinv" src="../../img/aula3.jpg">';
         echo '<center>';
         echo '<h3>' . $label . ' ' . $aula['id_aula'] . '</h3>';
-        echo '<p>Docente: ' . ($aula['nombre_docente'] ?? 'No asignado') . '</p>';
+        echo '<p>Docente: </p>';
+        echo '<p>'. ($aula['nombre_docente'] ?? 'No asignado') . '</p>'; 
         echo '</center>';
         echo '</div>';
     }

@@ -82,7 +82,7 @@ if($num1 > 0){
     <div class="col-md-6">
       <h2 class="titles">¿De qué trata esto?</h1>
       <p class="text-break">
-  ¡Parce! En YCUT nos parece muy chévere que quieras aportar al cuidado de tu colegio. Por eso creamos esta herramienta para que puedas reportar cualquier daño en los salones, pupitres o lo que veas fuera de lugar. Si ves a alguien maltratando algo del aula, también lo podés reportar sin problema. ¡Entre todos podemos tener un espacio más formidable para estudiar!
+  En YCUT nos parece excelente que quieras aportar al cuidado de la institución. Por eso creamos esta herramienta para que puedas reportar cualquier daño en los salones, pupitres o lo que veas fuera de lugar. Si ves a alguien maltratando algo del aula, también lo puedes reportar sin problema. ¡Entre todos podemos tener un espacio más formidable para estudiar!
   <?php echo $_SESSION['snom']?>
 </p>
     </div>
@@ -128,16 +128,13 @@ if($num1 > 0){
           <label>Tu Rol</label>
           <input type="text" class="form-control selrep" value="<?php echo $_SESSION['rolus']; ?>" readonly>
         </div>
-        <div class="form-group col-md-3 mb-2">
-          <label><b>¿Información Erronea?</b></label>
-          <button type="submit" class="btn  btnReport">Actualizar Datos</button>
-        </div>
+       
       </div>
 
       <!-- MENSAJE DE PRIVACIDAD -->
       <div class="form-group col-md-12 mb-2">
         <p class="text-break">
-          ¡Tranquil@! Esta información será vista únicamente por los administradores. La persona reportada no tendrá acceso a tu identidad. 😊
+          ¡Tranquilo! Esta información será vista únicamente por los administradores. La persona reportada no tendrá acceso a tu identidad. 
         </p>
       </div>
     </div>

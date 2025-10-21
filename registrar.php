@@ -39,10 +39,10 @@
             <br><br>
             <input class="inp1" type="number" name="nmbgrupo" placeholder="Grupo">
             <br><br>
-            <label class="txt1">ROL</label>
+            <label class="txt1">TIPO DE USUARIO</label>
             <br>
             <select class="sel1" name="cmbrol" required>
-                <option value="">Seleccione Rol</option>
+                <option value="">Seleccione Tipo de Usuario</option>
                 <option value="1">Estudiante</option>
                 <option value="2">Docente</option>
                 <option value="3">Coordinador</option>
