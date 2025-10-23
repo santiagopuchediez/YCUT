@@ -113,6 +113,18 @@ if(isset($_SESSION['user'])){
             <span class="nav-link-text ms-1">Administrar bloques</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="index.php?mod=gestionar_salon">
+            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
+            <span class="nav-link-text ms-1">Crear aulas</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="index.php?mod=modificar_salon">
+            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
+            <span class="nav-link-text ms-1">Administrar Aulas</span>
+          </a>
+        </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Administra tu Cuenta</h6>
         </li>
@@ -196,6 +208,8 @@ if(isset($_SESSION['user'])){
        require_once("../modulos/admin_bloques.php");
       }else if(@ $_GET['mod'] == "gestionar_salon"){
        require_once("../modulos/adminaulas.php");
+      }else if(@ $_GET['mod'] == "modificar_salon"){
+       require_once("../modulos/mod_aulas.php");
       }
       ?>
     </div>

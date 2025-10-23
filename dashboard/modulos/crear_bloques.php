@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4">
-                    <label class="form-label">Cardinalidad del aula</label>
+                    <label class="form-label">Cardinalidad del bloque</label>
                     <select name="caraul" class="selinv" required>
                         <option value="">Seleccione</option>
                         <option value="1">Sur</option>

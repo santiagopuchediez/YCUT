@@ -38,7 +38,7 @@
     <?php
       if (isset($_POST['btndel'])) {
       include '../../conexion.php';
-      $id = $_POST['id_bloque']; // aquí coinciden los nombres con el input hidden
+      $id = $_POST['id_bloque'];
 
       $sql = "DELETE FROM bloques WHERE id_bloque = '$id'";
       mysqli_query($conexion, $sql) or die("Problemas al ejecutar acción: " . mysqli_error($conexion));

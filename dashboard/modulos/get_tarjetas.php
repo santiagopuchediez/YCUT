@@ -40,7 +40,7 @@ if (isset($bloque_id[$bloque])) {
     echo '<div class="contaulasinv">';
     while ($aula = mysqli_fetch_assoc($aulas)) {
         echo '<div class="aulasinv" onclick="cargarTabla(' . $aula['id_aula'] . ')">';
-        echo '<img class="imgaulinv" src="../../img/aula3.jpg">';
+        echo '<img class="imgaulinv" src="../../IMG/aula3.jpg">';
         echo '<center>';
         echo '<h3>' . $label . ' ' . $aula['id_aula'] . '</h3>';
         echo '<p>Docente: </p>';
