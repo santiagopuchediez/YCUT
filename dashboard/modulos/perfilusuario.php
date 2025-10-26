@@ -6,20 +6,45 @@
 <title>Módulo Perfil</title>
 
 <?php
-    
-    include "../../conexion.php";
-    $doc = $_SESSION['user'];
-    $userdatos = mysqli_query($conexion, "SELECT s_nombre, s_apellido, email, grupo, id_rol FROM usuarios WHERE doc = '$doc'")or die($conexion."Problemas en la consulta");
-    $num1 = mysqli_num_rows($userdatos);
-    if($num1 > 0){
-    while($row1=mysqli_fetch_array($userdatos)){
-        $_SESSION['snom'] = $row1['s_nombre'];
-        $_SESSION['sape'] = $row1['s_apellido'];
-        $_SESSION['grupo'] = $row1['grupo'];
-        $_SESSION['email'] = $row1['email'];
-        $_SESSION['rolus'] = $row1['id_rol'];
-    }
-  }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+include "../../conexion.php";
+
+if (!isset($_SESSION['user'])) {
+    header("Location: ../../login.php");
+    exit();
+}
+
+$doc = $_SESSION['user'];
+
+$userdatos = mysqli_query($conexion, "
+  SELECT 
+    u.p_nombre,
+    u.s_nombre, 
+    u.p_apellido,
+    u.s_apellido, 
+    u.email, 
+    u.grupo, 
+    u.foto_perfil,
+    r.nombre AS rol_nombre
+  FROM usuarios u
+  INNER JOIN rol r ON u.id_rol = r.id_rol
+  WHERE u.doc = '$doc'
+") or die("Problemas en la consulta: " . mysqli_error($conexion));
+
+if (mysqli_num_rows($userdatos) > 0) {
+  $row = mysqli_fetch_assoc($userdatos);
+  $_SESSION['nom'] = $row['p_nombre'];
+  $_SESSION['snom'] = $row['s_nombre'];
+  $_SESSION['ape'] = $row['p_apellido'];
+  $_SESSION['sape'] = $row['s_apellido'];
+  $_SESSION['grupo'] = $row['grupo'];
+  $_SESSION['email'] = $row['email'];
+  $_SESSION['rolus'] = $row['rol_nombre'];
+  $_SESSION['foto_perfil'] = $row['foto_perfil'];
+}
 ?>
 
 <style>
@@ -235,27 +260,38 @@
   <div class="profile-card__cover" aria-hidden="true"></div>
 
   <div class="profile-card__body">
-    <figure class="profile-card__avatar" aria-labelledby="avatar-label">
-      <figcaption id="avatar-label" class="sr-only"></figcaption>
+    <figure class="profile-card__avatar">
+      <?php
+      // Si no tiene foto, usar una por defecto
+      $fotoPerfil = "../../IMG/default-avatar.png";
+      if (!empty($_SESSION['foto_perfil']) && file_exists("../../" . $_SESSION['foto_perfil'])) {
+          $fotoPerfil = "../../" . htmlspecialchars($_SESSION['foto_perfil']);
+      }
+      ?>
+      <img src="<?php echo $fotoPerfil; ?>" alt="Foto de perfil">
     </figure>
 
+
     <header class="profile-card__header">
-      <h1 class="profile-card__name"><?php echo $_SESSION['nom']," "; echo $_SESSION['snom'], " "; echo $_SESSION['ape'], " "; echo $_SESSION['sape']; ?></h1>
+      <h1 class="profile-card__name">
+        <?php echo $_SESSION['nom']." ".$_SESSION['snom']." ".$_SESSION['ape']." ".$_SESSION['sape']; ?>
+      </h1>
       <div class="profile-card__meta">
         <span>Medellín, CO</span>
       </div>
     </header>
 
     <div class="profile-card__actions">
-      <button class="btn" type="button" id="followBtn" aria-pressed="false">Ver reportes</button>
-      <button class="btn btn--ghost" type="button">Buzon de sigerencias</button>
+      <a href="/YCUT/dashboard/modulos/editar_perfil.php" class="btn">Editar Datos</a>
     </div>
 
     <section class="profile-card__content">
         <center>
             <div class="profile-card__stats" aria-label="Estadísticas">
                 <div class="stat" role="group" aria-label="Seguidores">
-                    <div class="stat__value"><?php echo $_SESSION['email']; ?></div>
+                    <div class="stat__value" title="<?php echo $_SESSION['email']; ?>">
+                      <?php echo $_SESSION['email']; ?>
+                    </div>
                     <div class="stat__label">Email</div>
                 </div>
                 <div class="stat" role="group" aria-label="Siguiendo">
@@ -271,7 +307,6 @@
     </section>
   </div>
 </article>
-
 
 </body>
 </html>
